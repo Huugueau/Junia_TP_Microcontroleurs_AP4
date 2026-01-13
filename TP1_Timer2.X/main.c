@@ -20,9 +20,13 @@
 #include "../Ressources/configbits.h"
 
 
-void initTimer() {
+void initTimerAndInterupts() {
     PR2 = 0b01111101;
     T2CON = 0b00000110;
+    INTCONbits.GIE = 1;
+    INTCONbits.PEIE = 1;
+    PIE1bits.TMR2IE = 1;
+    
 }
 
 void nextLight(int light) {
@@ -39,16 +43,16 @@ void nextLight(int light) {
 
 }
 
-void main(void) {
-
-    initTimer();
+void initLeds(void) {
     TRISD &= 0xF0;
     TRISB &= 0xF0;
-    int count = 0;
-    int light = 0;
-    while(1) {
-        
-        if(TMR2IF) {
+}
+
+int count;
+int light;
+
+void __interrupt() isr(void) {
+    if(TMR2IE && TMR2IF) {
             TMR2IF = 0;
             count++;
             if(count == 125) {
@@ -58,7 +62,13 @@ void main(void) {
                 count = 0;
             }
         }
+}
+
+void main(void) {
+
+    initTimerAndInterupts();
+    initLeds();
     
-    }
+    while(1) {}
 }
 
