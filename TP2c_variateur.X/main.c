@@ -51,7 +51,7 @@ void initADC(void) {
     ADCON0bits.ADON = 1;         // Activer le module ADC
 }
 
-unsigned int readADCValue(void) {
+int readADCValue(void) {
     
     //__delay_us(5);               
     
@@ -71,7 +71,7 @@ void main(void) {
     initADC();
     
     while(1) {
-        unsigned int value = readADCValue();
+        int value = readADCValue();
         initPWM(value);
     }
     
