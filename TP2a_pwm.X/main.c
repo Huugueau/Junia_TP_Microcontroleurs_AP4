@@ -6,7 +6,6 @@ void initPPS(){
     PPSLOCK = 0xAA;
     PPSLOCKbits.PPSLOCKED = 0; 
     
-    TRISDbits.TRISD1 = 0;
     RD0PPS = 15;
     PPSLOCKbits.PPSLOCKED = 1;
 }

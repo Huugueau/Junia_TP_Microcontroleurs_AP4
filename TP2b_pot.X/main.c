@@ -23,14 +23,14 @@ void nextLight(int light) {
 }
 
 void initPot(){
-    ANSELAbits.ANSA0 = 1;
     TRISAbits.TRISA0 = 1;
+    ANSELAbits.ANSA0 = 1;
     
     ADCON0bits.CHS = 0b00000; 
     ADCON1bits.ADFM = 0; 
     ADCON0bits.ADON = 1; 
 }
-void readPot(){
+unsigned char readPot(){
     ADCON0bits.GO =1;
     while(ADCON0bits.GO){}
     return ADRESH;
@@ -42,9 +42,11 @@ void initLeds(void) {
 }
 
 void main(void) {
+    int light;
     initLeds();
     initPot();
     while(1){
-        nextLight(readPot()/8);
+        light = readPot() / 32;
+        nextLight(light);
     }
 }
