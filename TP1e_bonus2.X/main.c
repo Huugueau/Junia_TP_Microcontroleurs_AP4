@@ -18,29 +18,49 @@ void initButton() {
 }
 
 void __interrupt() isr(void) {
-    if (TMR2IE && TMR2IF) {
-        if(on == 0) return;
+    if (on == 1 && TMR2IE && TMR2IF) {
         TMR2IF = 0;
         count++;
         if (count == 125) {
-            if (light == 8) light = 0;
+            if (light == 4) light = 0;
             nextLight(light);
             light++;
             count = 0;
         }
     }
-    if(IOCAF5) {
-        on = on == 1 ? 0 : 1;
+    if (IOCAF5) {
+        IOCAF5 = 0;
+        if (on == 1) on = 0;
+        else on = 1;
     }
 }
 
 void main(void) {
 
-    initIOC();
-    initButton();
+
     initTimerAndInterupts();
     initLeds();
+    initButton();
+    initIOC();
+    LATD &= 0x00;
+    LATB &= 0x00;
+    int count;
+    int light;
+    
+    while(1) {
+        if (TMR2IF) {
+            TMR2IF = 0;
+            count++;
+            if(count == 125) {
+                if(light == 4) light = 0;
+                nextLight2(light);
+                light++;
+                count = 0;
+            }
+        }
+    }
+        
 
-    while (1) {}
 }
+
 

@@ -9,9 +9,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
-#include "../Ressources/configbits.h"
-#include "../Ressources/spi.h"
-#include "../Ressources/lcd.h"
+#include <../Ressources/configbits.h>
+#include <../Ressources/spi.h>
+#include <../Ressources/lcd.h>
 
 #define _XTAL_FREQ 8000000
 
@@ -187,8 +187,8 @@ void main(void) {
         offset = (readPot() * 35 /255);
         
         if(PORTAbits.RA5 == 0) {
-            transformType = transformType == 1 ? 0 : 1;
             while(PORTAbits.RA5 == 0);
+            transformType = transformType == 1 ? 0 : 1;
         }
         
         if(offset != lastOffset || transformType != lastTransformType)  {
@@ -198,7 +198,8 @@ void main(void) {
             sprintf(lcdBuffer, "Offset: %d", (readPot() * 35 / 255));
             LCD_WriteString(lcdBuffer);
             LCD_GoTo(1, 0);
-            LCD_WriteString((transformType == 1 ? "Type: Codage" : "Type: Décodage"));
+            sprintf(lcdBuffer, "Type (%d): %s", transformType, (transformType == 1 ? "Codage" : "Decodage"));
+            LCD_WriteString(lcdBuffer);
         }
         
         

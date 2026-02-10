@@ -3,15 +3,12 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>TP1d_interupt</name>
-            <creation-uuid>be2fa97b-36f4-468e-aba8-060669365e94</creation-uuid>
+            <name>TP3b_UART_echo</name>
+            <creation-uuid>aba6da42-3cc0-484a-9b5d-07ab4acc1ba5</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>
             <make-dep-projects/>
-            <sourceRootList>
-                <sourceRootElem>../TP1_Timer2.X</sourceRootElem>
-                <sourceRootElem>../Ressources</sourceRootElem>
-            </sourceRootList>
+            <sourceRootList/>
             <confList>
                 <confElem>
                     <name>default</name>
